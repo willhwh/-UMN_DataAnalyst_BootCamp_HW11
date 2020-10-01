@@ -53,20 +53,12 @@ function getDropDownValue(){
                     .text(`bbtype: ${metaBbtype}`)
                 infoSection.append('h5')
                     .text(`wfreq: ${metaWfreq}`)
-
-
                 //----- info section finish
 
 
 
             }
         })
-
-
-
-
-
-
 
        sampleData.forEach(function(data){
         // console.log(data)
@@ -107,7 +99,29 @@ function getDropDownValue(){
                 //-----bar cahrt section finish
 
 
+                //-----bubble chart section
+                console.log('bubble chart match')
+                var sampleOtuIds_bubble = data.otu_ids
+                var sampleValues_bubble = data.sample_values
+                console.log(sampleOtuIds_bubble)
+                console.log(sampleValues_bubble)
+                var trace2={
+                    x:sampleOtuIds_bubble,
+                    y:sampleValues_bubble,
+                    mode:'markers',
+                    marker:{
+                        size:sampleValues_bubble,
+                        color:sampleOtuIds_bubble,
+                    },
+                    text:sampleLabels
+                }
 
+                layout2={
+
+                }
+                var data2=[trace2]
+                Plotly.newPlot('bubble',data2)
+                //-----bubble chart section finish
 
             }
         
