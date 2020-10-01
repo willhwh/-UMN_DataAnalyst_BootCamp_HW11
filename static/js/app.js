@@ -16,45 +16,74 @@ for (i = 0; i < names.length; i++) {
 d3.select('#selDataset').on('change',getDropDownValue);
 
 function getDropDownValue(){
-    var selectedDropDownValue = d3.select('#selDataset').node().value;
-    console.log(selectedDropDownValue);
+    var selectedDropDownValue = parseInt(d3.select('#selDataset').node().value);
+    console.log(`Drop Down Value is ${selectedDropDownValue}`);
 
     d3.json("samples.json").then(function(data) {
-        var metadata =data.samples;
-        metadata.forEach(function(data){
+        var sampleData =data.samples;
+        var metaData = data.metadata;
+
+
+        metaData.forEach(function(data){
+            var metaDataId = parseInt(data.id)
+            if (metaDataId===selectedDropDownValue){
+                console.log('info matched')
+                var metaEthnicity = data.ethnicity
+                console.log(metaEthnicity)
+                var metaGender = data.gender
+                console.log(metaGender)
+                var metaLocation = data.location
+                console.log(metaLocation)
+                var metaBbtype = data.bbtype
+                console.log(metaBbtype)
+                var metaWfreq = data.wfreq
+                console.log(metaWfreq)
+            }
+        })
+
+
+
+
+
+
+
+       sampleData.forEach(function(data){
         // console.log(data)
-        var sampleId = data.id
-        if (sampleId ===selectedDropDownValue){
-            console.log('great')
-            // console.log(sampleId)
-            var sampleValues = data.sample_values.slice(0, 10)
-            console.log(sampleValues)
-            var sampleOtuIds = data.otu_ids.slice(0, 10).map(id=>`OTU ${id}`)
-            //console.log(sampleOtuIds)
-            var sampleLabels = data.otu_labels.slice(0, 10)
-            //console.log(sampleLabels)
+            var sampleId = parseInt(data.id)
+            if (sampleId ===selectedDropDownValue){
+                console.log('bar matched')
+                // console.log(sampleId)
+                var sampleValues = data.sample_values.slice(0, 10)
+                //console.log(sampleValues)
+                var sampleOtuIds = data.otu_ids.slice(0, 10).map(id=>`OTU ${id}`)
+                //console.log(sampleOtuIds)
+                var sampleLabels = data.otu_labels.slice(0, 10)
+                //console.log(sampleLabels)
 
-            var trace1={
-                x:sampleValues,
-                y:sampleOtuIds,
-                type:'bar',
-                orientation: 'h',
-                //sort by xaxis value
-                transforms: [{
-                    type: 'sort',
-                    target: 'x',
-                    order: 'asceding'
-                  }]
 
-            }
-            var layout1={
-                xaxis:{title:'Sample Values'},
-                yaxis:{title:'otu_id'},
-             
-            }
-            var data1=[trace1]
-            Plotly.newPlot("bar", data1,layout1);
 
+                //-----bar chart section
+                var trace1={
+                    x:sampleValues,
+                    y:sampleOtuIds,
+                    type:'bar',
+                    orientation: 'h',
+                    //sort by xaxis value
+                    transforms: [{
+                        type: 'sort',
+                        target: 'x',
+                        order: 'asceding'
+                    }]
+
+                }
+                var layout1={
+                    xaxis:{title:'Sample Values'},
+                    yaxis:{title:'otu_id'},
+                
+                }
+                var data1=[trace1]
+                Plotly.newPlot("bar", data1,layout1);
+                //-----bar cahrt section finish
 
 
 
