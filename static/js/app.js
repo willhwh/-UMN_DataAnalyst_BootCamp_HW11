@@ -12,7 +12,7 @@ for (i = 0; i < names.length; i++) {
         .attr('value',names[i]);
 };
 
-//----
+//----event handler
 d3.select('#selDataset').on('change',getDropDownValue);
 
 function getDropDownValue(){
@@ -38,6 +38,27 @@ function getDropDownValue(){
                 console.log(metaBbtype)
                 var metaWfreq = data.wfreq
                 console.log(metaWfreq)
+
+                //----- info section
+                var infoSection = d3.select('#sample-metadata')
+                infoSection.append('h5')
+                    .text(`id: ${metaDataId}`)
+                infoSection.append('h5')
+                    .text(`ethnicity: ${metaEthnicity}`)
+                infoSection.append('h5')
+                    .text(`gender: ${metaGender}`)
+                infoSection.append('h5')
+                    .text(`location: ${metaLocation}`)
+                infoSection.append('h5')
+                    .text(`bbtype: ${metaBbtype}`)
+                infoSection.append('h5')
+                    .text(`wfreq: ${metaWfreq}`)
+
+
+                //----- info section finish
+
+
+
             }
         })
 
