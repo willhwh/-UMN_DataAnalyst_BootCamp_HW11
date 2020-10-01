@@ -27,20 +27,22 @@ function getDropDownValue(){
         metaData.forEach(function(data){
             var metaDataId = parseInt(data.id)
             if (metaDataId===selectedDropDownValue){
-                console.log('info matched')
+                // console.log('info matched')
                 var metaEthnicity = data.ethnicity
-                console.log(metaEthnicity)
+                // console.log(metaEthnicity)
                 var metaGender = data.gender
-                console.log(metaGender)
+                // console.log(metaGender)
                 var metaLocation = data.location
-                console.log(metaLocation)
+                // console.log(metaLocation)
                 var metaBbtype = data.bbtype
-                console.log(metaBbtype)
+                // console.log(metaBbtype)
                 var metaWfreq = data.wfreq
-                console.log(metaWfreq)
+                // console.log(metaWfreq)
 
                 //----- info section
                 var infoSection = d3.select('#sample-metadata')
+                infoSection.html("")
+
                 infoSection.append('h5')
                     .text(`id: ${metaDataId}`)
                 infoSection.append('h5')
@@ -55,6 +57,36 @@ function getDropDownValue(){
                     .text(`wfreq: ${metaWfreq}`)
                 //----- info section finish
 
+                
+                //-----challenge section
+                console.log(metaWfreq);
+                var data = [
+                    {
+                        domain: { x: [0, 1], y: [0, 1] },
+                        value: metaWfreq,
+                        title: { text: "Belly Button Washing Frequency" },
+                        type: "indicator",
+                        mode: "gauge+number",
+                        gauge: {
+                            axis: { range: [null, 9]},
+                            steps: [
+                                { range: [0, 1], color: "#ffffe0" },
+                                { range: [1, 2], color: "#c5eddf" },
+                                { range: [2,3], color: "#a5d5d8"  },
+                                { range: [3, 4], color: "#8abccf" },
+                                { range: [4, 5], color: "#73a2c6" },
+                                { range: [5, 6], color: "#5d8abd" },
+                                { range: [6, 7], color: "#4771b2" },
+                                { range: [7, 8], color: "#2e59a8" },
+                                { range: [8, 9], color: "#00429d" }
+                              ],}
+                    }
+                ];
+                
+                var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+                Plotly.newPlot('gauge', data, layout);
+
+                //-----challenge section finish
 
 
             }
@@ -62,9 +94,10 @@ function getDropDownValue(){
 
        sampleData.forEach(function(data){
         // console.log(data)
+
             var sampleId = parseInt(data.id)
             if (sampleId ===selectedDropDownValue){
-                console.log('bar matched')
+                // console.log('bar matched')
                 // console.log(sampleId)
                 var sampleValues = data.sample_values.slice(0, 10)
                 //console.log(sampleValues)
@@ -100,11 +133,11 @@ function getDropDownValue(){
 
 
                 //-----bubble chart section
-                console.log('bubble chart match')
+                // console.log('bubble chart match')
                 var sampleOtuIds_bubble = data.otu_ids
                 var sampleValues_bubble = data.sample_values
-                console.log(sampleOtuIds_bubble)
-                console.log(sampleValues_bubble)
+                // console.log(sampleOtuIds_bubble)
+                // console.log(sampleValues_bubble)
                 var trace2={
                     x:sampleOtuIds_bubble,
                     y:sampleValues_bubble,
@@ -114,10 +147,6 @@ function getDropDownValue(){
                         color:sampleOtuIds_bubble,
                     },
                     text:sampleLabels
-                }
-
-                layout2={
-
                 }
                 var data2=[trace2]
                 Plotly.newPlot('bubble',data2)
