@@ -149,6 +149,6 @@ function getDropDownValue(){
                 //-----bubble chart section finish
             };
         });
-    })
+    });
 };
 
